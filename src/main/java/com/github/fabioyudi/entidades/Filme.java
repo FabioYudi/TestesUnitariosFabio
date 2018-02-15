@@ -1,4 +1,4 @@
-package com.github.fabioyudi.Entidades;
+package com.github.fabioyudi.entidades;
 
 public class Filme {
     private String nome;

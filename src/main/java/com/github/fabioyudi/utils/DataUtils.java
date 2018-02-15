@@ -1,4 +1,4 @@
-package com.github.fabioyudi.Utils;
+package com.github.fabioyudi.utils;
 
 import java.util.Calendar;
 import java.util.Date;
