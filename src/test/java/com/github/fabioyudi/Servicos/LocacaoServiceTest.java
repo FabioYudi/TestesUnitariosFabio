@@ -3,6 +3,7 @@ package com.github.fabioyudi.Servicos;
 import com.github.fabioyudi.Entidades.Filme;
 import com.github.fabioyudi.Entidades.Locacao;
 import com.github.fabioyudi.Entidades.Usuario;
+import com.github.fabioyudi.Servicos.LocacaoService;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -21,7 +22,6 @@ public class LocacaoServiceTest {
         //acao
         Locacao locacao = service.alugarFilme(usuario, filme);
 
-        //231231231231
         //verificacao
         Assert.assertTrue(locacao.getValor() == 5.0);
         Assert.assertTrue(isMesmaData(locacao.getDataLocacao(), new Date()));

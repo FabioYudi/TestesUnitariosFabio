@@ -9,6 +9,12 @@ import java.util.Date;
 import static com.github.fabioyudi.Utils.DataUtils.adicionarDias;
 
 public class LocacaoService {
+
+    public String vPublico;
+    protected String vProtegido;
+    private String vPrivado;
+    String vDefault;
+
     public Locacao alugarFilme(Usuario usuario, Filme filme) {
 
         Locacao locacao = new Locacao();
