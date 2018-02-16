@@ -5,7 +5,9 @@ import com.github.fabioyudi.entidades.Locacao;
 import com.github.fabioyudi.entidades.Usuario;
 import com.github.fabioyudi.exception.FilmeSemEstoqueException;
 import com.github.fabioyudi.exception.LocadoraException;
+import com.github.fabioyudi.utils.DataUtils;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -21,13 +23,12 @@ public class LocacaoService {
     public Locacao alugarFilme(Usuario usuario, List<Filme> filmes) throws FilmeSemEstoqueException, LocadoraException {
 
 
-
-        if(usuario == null){
-            throw  new LocadoraException("Usuario vazio");
+        if (usuario == null) {
+            throw new LocadoraException("Usuario vazio");
         }
 
-        if(filmes == null || filmes.isEmpty()){
-            throw  new LocadoraException("Filme Vazio");
+        if (filmes == null || filmes.isEmpty()) {
+            throw new LocadoraException("Filme Vazio");
         }
 
         for (Filme f : filmes) {
@@ -35,7 +36,9 @@ public class LocacaoService {
             System.out.println(f.getEstoque());
             System.out.println(f.getPrecoLocacao());
             if (f.getEstoque() == 0) {
+
                 throw new FilmeSemEstoqueException();
+
             }
 
             valorLocacao += f.getPrecoLocacao();
@@ -48,12 +51,29 @@ public class LocacaoService {
         locacao.setDataLocacao(new Date());
 
 
-
-
         //Entrega no dia seguinte
         Date dataEntrega = new Date();
         dataEntrega = adicionarDias(dataEntrega, 1);
+        if(DataUtils.verificarDiaSemana(dataEntrega, Calendar.SUNDAY)){
+            dataEntrega = adicionarDias(dataEntrega, 1);
+        }
+
         locacao.setDataRetorno(dataEntrega);
+
+        if (filmes.size() > 2) {
+            valorLocacao -= filmes.get(2).getPrecoLocacao() * 0.25;
+            if (filmes.size() > 3) {
+                valorLocacao -= filmes.get(3).getPrecoLocacao() * 0.50;
+                if (filmes.size() > 4) {
+                    valorLocacao -= filmes.get(4).getPrecoLocacao() * 0.75;
+                    if (filmes.size() > 5) {
+                        valorLocacao -= filmes.get(5).getPrecoLocacao();
+                    }
+                }
+            }
+        }
+
+
         locacao.setValor(valorLocacao);
 
         //Salvando a locacao...
