@@ -1,5 +1,7 @@
 package com.github.fabioyudi.servicos;
 
+import buildermaster.BuilderMaster;
+import com.github.fabioyudi.daos.LocacaoDao;
 import com.github.fabioyudi.entidades.Filme;
 import com.github.fabioyudi.entidades.Locacao;
 import com.github.fabioyudi.entidades.Usuario;
@@ -14,6 +16,9 @@ import java.util.List;
 import static com.github.fabioyudi.utils.DataUtils.adicionarDias;
 
 public class LocacaoService {
+    private LocacaoDao dao;
+
+
     public String vPublico;
     protected String vProtegido;
     private String vPrivado;
@@ -77,10 +82,14 @@ public class LocacaoService {
         locacao.setValor(valorLocacao);
 
         //Salvando a locacao...
-        //TODO adicionar método para salvar
-
+        dao.salvar(locacao);
 
         return locacao;
+    }
+
+
+    public static void main(String[] args) {
+        new BuilderMaster().gerarCodigoClasse(Locacao.class);
     }
 
 }
