@@ -2,7 +2,7 @@
   <library name="Maven: junit:junit:4.12">
     <CLASSES>
       <root url="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/" />
-      <root url="jar://$PROJECT_DIR$/../../Jar/builderMaster.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../Jar" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12-javadoc.jar!/" />
@@ -10,5 +10,6 @@
     <SOURCES>
       <root url="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12-sources.jar!/" />
     </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/../../Jar" recursive="false" />
   </library>
 </component>

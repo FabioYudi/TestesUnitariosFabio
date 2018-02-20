@@ -17,6 +17,8 @@ import static com.github.fabioyudi.utils.DataUtils.adicionarDias;
 
 public class LocacaoService {
     private LocacaoDao dao;
+    private SPCService spcService;
+    private EmailService emailService;
 
 
     public String vPublico;
@@ -46,6 +48,10 @@ public class LocacaoService {
 
             }
 
+            if (spcService.possuiNegativacao(usuario)) {
+                throw new LocadoraException("Usuario negativado");
+            }
+
             valorLocacao += f.getPrecoLocacao();
         }
 
@@ -59,7 +65,7 @@ public class LocacaoService {
         //Entrega no dia seguinte
         Date dataEntrega = new Date();
         dataEntrega = adicionarDias(dataEntrega, 1);
-        if(DataUtils.verificarDiaSemana(dataEntrega, Calendar.SUNDAY)){
+        if (DataUtils.verificarDiaSemana(dataEntrega, Calendar.SUNDAY)) {
             dataEntrega = adicionarDias(dataEntrega, 1);
         }
 
@@ -87,9 +93,23 @@ public class LocacaoService {
         return locacao;
     }
 
+    public void notificarAtrasos(){
+        List<Locacao> locacoes = dao.obterLocacacoesAtrasadas();
+
+        locacoes.forEach(locacao2 -> {
+            if(locacao2.getDataRetorno().before(new Date())) {
+                emailService.notificarAtraso(locacao2.getUsuario());
+            }
+
+        });
+    }
+
 
     public static void main(String[] args) {
         new BuilderMaster().gerarCodigoClasse(Locacao.class);
     }
+
+
+
 
 }

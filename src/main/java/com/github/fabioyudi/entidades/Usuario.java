@@ -35,4 +35,12 @@ public class Usuario {
 
         return Objects.hash(nome);
     }
+
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "nome='" + nome + '\'' +
+                '}';
+    }
 }
