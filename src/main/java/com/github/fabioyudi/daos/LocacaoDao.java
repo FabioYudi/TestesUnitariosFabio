@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface LocacaoDao {
 
-     void salvar(Locacao locacao);
+    public void salvar(Locacao locacao);
 
     List<Locacao> obterLocacacoesAtrasadas();
 }

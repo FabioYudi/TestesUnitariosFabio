@@ -10,15 +10,18 @@ import com.github.fabioyudi.utils.DataUtils;
 import org.junit.*;
 import org.junit.rules.ErrorCollector;
 import org.junit.rules.ExpectedException;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 import static com.github.fabioyudi.builders.FilmeBuilder.umFilme;
 import static com.github.fabioyudi.builders.LocacaoBuilder.umLocacao;
 import static com.github.fabioyudi.builders.UsuarioBuilder.umUsuarioBuilder;
+import static com.github.fabioyudi.matchers.MatchersProprios.ehHoje;
+import static com.github.fabioyudi.matchers.MatchersProprios.ehHojeComDiferenca;
 import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
@@ -217,7 +220,6 @@ public class LocacaoServiceTest {
     }
 
 
-
     @Test
     public void deveTratarErroSPC() throws FilmeSemEstoqueException, LocadoraException {
         //cenario
@@ -229,6 +231,24 @@ public class LocacaoServiceTest {
         //acao
         service.alugarFilme(usuario, filmes);
         //verificação
+    }
+
+
+    @Test
+    public void deveProrrogarUmaLocacao() throws FilmeSemEstoqueException, LocadoraException {
+
+        Locacao locacao = umLocacao().agora();
+        service.prorrogarLocacao(locacao, 3);
+
+        ArgumentCaptor<Locacao> argCapt = ArgumentCaptor.forClass(Locacao.class);
+        Mockito.verify(dao).salvar(argCapt.capture());
+        Locacao locacaoRetorno = argCapt.getValue();
+
+        error.checkThat(locacaoRetorno.getValor(), is(4.0));
+        error.checkThat(locacaoRetorno.getDataLocacao(), ehHoje());
+        error.checkThat(locacaoRetorno.getDataRetorno(), ehHojeComDiferenca(3));
+
+
     }
 
 

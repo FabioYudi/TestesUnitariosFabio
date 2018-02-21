@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 import static com.github.fabioyudi.utils.DataUtils.adicionarDias;
+import static com.github.fabioyudi.utils.DataUtils.obterDataComDiferencaDias;
 
 public class LocacaoService {
     private LocacaoDao dao;
@@ -102,6 +103,17 @@ public class LocacaoService {
             }
 
         });
+    }
+
+    public void prorrogarLocacao(Locacao locacao, int dias){
+        Locacao novaLocacao = new Locacao();
+        novaLocacao.setUsuario(locacao.getUsuario());
+        novaLocacao.setFilmes(locacao.getFilmes());
+        novaLocacao.setDataLocacao(new Date());
+        novaLocacao.setDataRetorno(obterDataComDiferencaDias(dias));
+        novaLocacao.setValor(locacao.getValor() * dias);
+        System.out.println(novaLocacao.getDataRetorno());
+        dao.salvar(novaLocacao);
     }
 
 
