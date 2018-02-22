@@ -13,8 +13,9 @@ public class AssertTest {
         Assert.assertTrue(true);
         Assert.assertFalse(false);
         Assert.assertEquals(1, 1);
-        Assert.assertEquals(0.51234, 0.512, 0.001);
+        Assert.assertEquals(0.51234, 0.213, 0.202);
         Assert.assertEquals(Math.PI, 3.14, 0.01);
+        System.out.println(Math.PI);
 
         //inteiro objeto e tipo primitivo
         int i = 5;

@@ -34,6 +34,7 @@ public class LocacaoServiceTest {
 
     @InjectMocks
     private LocacaoService service;
+
     private static int contador = 0;
     private List<Filme> filmes;
 

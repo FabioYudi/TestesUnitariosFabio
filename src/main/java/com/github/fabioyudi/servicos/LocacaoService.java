@@ -40,9 +40,7 @@ public class LocacaoService {
         }
 
         for (Filme f : filmes) {
-            System.out.println(f.getNome());
-            System.out.println(f.getEstoque());
-            System.out.println(f.getPrecoLocacao());
+
             if (f.getEstoque() == 0) {
 
                 throw new FilmeSemEstoqueException();
