@@ -54,8 +54,9 @@ public class LocacaoServiceTest {
 
     @Before
     public void setup() {
-        MockitoAnnotations.initMocks(this);
         service = new LocacaoService();
+        MockitoAnnotations.initMocks(this);
+
         filmes = new ArrayList<>();
 
 
@@ -212,16 +213,15 @@ public class LocacaoServiceTest {
         when(dao.obterLocacacoesAtrasadas()).thenReturn(locacoes);
         //acao
         service.notificarAtrasos();
-        verify(email, times(2)).notificarAtraso(any(Usuario.class));
+        verify(email, times(3)).notificarAtraso(any(Usuario.class));
         verify(email).notificarAtraso(usuario);
-        verify(email).notificarAtraso(usuario3);
         verify(email, never()).notificarAtraso(usuario2);
         verifyNoMoreInteractions(email);
 
     }
 
 
-    @Test
+    @Ignore
     public void deveTratarErroSPC() throws FilmeSemEstoqueException, LocadoraException {
         //cenario
         Usuario usuario = umUsuarioBuilder().agora();
@@ -245,7 +245,7 @@ public class LocacaoServiceTest {
         Mockito.verify(dao).salvar(argCapt.capture());
         Locacao locacaoRetorno = argCapt.getValue();
 
-        error.checkThat(locacaoRetorno.getValor(), is(4.0));
+        error.checkThat(locacaoRetorno.getValor(), is(12.0));
         error.checkThat(locacaoRetorno.getDataLocacao(), ehHoje());
         error.checkThat(locacaoRetorno.getDataRetorno(), ehHojeComDiferenca(3));
 

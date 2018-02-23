@@ -1,5 +1,6 @@
 package com.github.fabioyudi.servicos;
 
+import com.github.fabioyudi.daos.LocacaoDao;
 import com.github.fabioyudi.entidades.Filme;
 import com.github.fabioyudi.entidades.Locacao;
 import com.github.fabioyudi.entidades.Usuario;
@@ -9,6 +10,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -22,6 +26,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @RunWith(Parameterized.class)
 
 public class CalculoValorLocacaoTest {
+   @InjectMocks
    private LocacaoService service;
     @Parameterized.Parameter
     public  List<Filme> filmes;
@@ -31,10 +36,14 @@ public class CalculoValorLocacaoTest {
     @Parameterized.Parameter(value = 2)
     public String teste;
 
+    @Mock
+    LocacaoDao dao;
+
 
     @Before
     public void setup() {
         service = new LocacaoService();
+        MockitoAnnotations.initMocks(this);
     }
 
     private static Filme filme1 = umFilme().agora();

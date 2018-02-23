@@ -1,10 +1,19 @@
 package com.github.fabioyudi.servicos;
 
 import com.github.fabioyudi.entidades.Usuario;
+import com.github.fabioyudi.matchers.PrimeiroElementoMatcher;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class AssertTest {
+
+
+
     @Test
     public void test(){
 
@@ -13,7 +22,7 @@ public class AssertTest {
         Assert.assertTrue(true);
         Assert.assertFalse(false);
         Assert.assertEquals(1, 1);
-        Assert.assertEquals(0.51234, 0.213, 0.202);
+        Assert.assertEquals(0.51234, 0.313, 0.102);
         Assert.assertEquals(Math.PI, 3.14, 0.01);
         System.out.println(Math.PI);
 
@@ -26,7 +35,7 @@ public class AssertTest {
         //Strings
         Assert.assertEquals("bola", "bola");
         Assert.assertNotEquals("bola", "casa");
-        Assert.assertTrue("bola".equalsIgnoreCase("Bola"));
+        Assert.assertTrue("bola".contains("aa"));
         Assert.assertTrue("bola".startsWith("bo"));
 
 
@@ -47,5 +56,19 @@ public class AssertTest {
         Assert.assertNull(u3);
         Assert.assertNotNull(u2);
 
+    }
+
+
+    @Test
+    public void trazListaOrdenadaComTodosOsElementos() {
+        List<Integer> lista = Arrays.asList(1,2,3,10);
+
+
+        List<Integer> listaOrdenada = lista.stream()
+                .sorted(Comparator.naturalOrder())
+                .collect(Collectors.toList());
+        listaOrdenada.forEach(System.out::println);
+
+        Assert.assertThat(listaOrdenada, new PrimeiroElementoMatcher());
     }
 }
